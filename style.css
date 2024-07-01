@@ -3,10 +3,6 @@
 	text-align: center;
 }
 
-.person {
-	padding-left: 5px;
-	padding-right: 5px;
-}
 
 .person::before {
 	display: flex;
@@ -36,7 +32,9 @@
 	position: relative;
 	justify-content: right;
 	border-top: 1px solid black;
-	height: 20px;
+	height: 0px;
+	width: 50%;
+	top: -20px;
 	left: 50%;
 }
 
@@ -44,19 +42,30 @@
 	display: flex;
 	content: '';
 	position: relative;
-	justify-content: right;
+	justify-content: center;
 	border-top: 1px solid black;
-	height: 20px;
-	left: 50%;
+	height: 0px;
+	width: 100%;
+	top: -20px;
 }
 
 .reportright {
-
+	display: flex;
+	content: '';
+	position: relative;
+	justify-content: left;
+	border-top: 1px solid black;
+	height: 0px;
+	width: 50%;
+	top: -20px;
+	left: 0%;
 }
 
 .name {
 	border: 1px solid black;
 	padding: 10px;
+	margin-left: 5px;
+	margin-right: 5px;
 	min-width: 150px;
 	background-color: #FFFFFF;
 	display: inline-block;
