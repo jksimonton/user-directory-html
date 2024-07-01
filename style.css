@@ -1,0 +1,69 @@
+.directory {
+	margin: auto;
+	text-align: center;
+}
+
+.person {
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
+.person::before {
+	display: flex;
+	content: '';
+	position: relative;
+	justify-content: right;
+	border-left: 1px solid black;
+	height: 20px;
+	width: 1px;;
+	left: 50%;
+}
+
+.manager {
+	display: flex;
+	content: '';
+	position: relative;
+	justify-content: right;
+	border-left: 1px solid black;
+	height: 20px;
+	width: 1px;
+	left: 50%;
+}
+
+.reportleft {
+	display: flex;
+	content: '';
+	position: relative;
+	justify-content: right;
+	border-top: 1px solid black;
+	height: 20px;
+	left: 50%;
+}
+
+.reportcenter {
+	display: flex;
+	content: '';
+	position: relative;
+	justify-content: right;
+	border-top: 1px solid black;
+	height: 20px;
+	left: 50%;
+}
+
+.reportright {
+
+}
+
+.name {
+	border: 1px solid black;
+	padding: 10px;
+	min-width: 150px;
+	background-color: #FFFFFF;
+	display: inline-block;
+}
+
+.directreports {
+	display: flex;
+	justify-content: center;
+
+}
