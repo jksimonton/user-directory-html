@@ -1,4 +1,17 @@
 
+#region Basic Blocks
+
+$singleDiv = @("
+</div>
+</div>
+")
+
+$doubleDiv = @("
+</div>
+")
+
+#endregion
+
 #region Root Code
 
 $rootSetup = @( "
@@ -9,10 +22,7 @@ $rootSetup = @( "
 <div class='name'>$UserFullName</div>
 ")
 
-$rootEnding = @( "
-</div>
-</div>
-")
+$rootEnding = $doubleDiv
 
 #endregion
 
@@ -24,9 +34,36 @@ $isManager = @("
 <div class='directreports'>
 ")
 
-$isManagerEnd  = @("
-</div>
-</div>
+$isManagerEnd  = $doubleDiv
+
+#endregion
+
+
+#region Each Person
+
+$personFirstReport = @("
+<div class='person'>
+<div class='reportleft'></div>
+<div class='name'>$UserFullName</div>
 ")
+
+$personMiddleReport = @("
+<div class='person'>
+<div class='reportcenter'></div>
+<div class='name'>$UserFullName</div>
+")
+
+$personLastReport = @("
+<div class='person'>
+<div class='reportright'></div>
+<div class='name'>$UserFullName</div>
+")
+
+$personOnlyReport = @("
+<div class='person'>
+<div class='name'>$UserFullName</div>
+")  
+
+$personEnd = $singleDiv
 
 #endregion
