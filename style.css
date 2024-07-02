@@ -1,18 +1,71 @@
+
 .directory {
 	margin: auto;
 	text-align: center;
 }
 
+.stackseparator {
+	height: 10px;
+	width: 1px;
+	border-left: 1px solid black;
+	position: relative;
+	top: -15px;
+}
 
-.person::before {
+.personstacked {
+	display: flex;
+	flex-direction: row;
+	
+}
+
+.personbefore {
 	display: flex;
 	content: '';
 	position: relative;
 	justify-content: right;
 	border-left: 1px solid black;
 	height: 20px;
-	width: 1px;;
+	width: 1px;
 	left: 50%;
+}
+
+.personleft {
+	display: flex;
+	content: '';
+	border-top: 1px solid black;
+	justify-content: right;
+	position: relative;
+	height: 1px;
+	width: 20px;
+	top: 15px;
+	left: 0px;
+}
+
+.treeleft {
+	display: flex;
+	content: '';
+	border-left: 1px solid black;
+	border-bottom: 1px solid black;
+	justify-content: right;
+	position: relative;
+	height: 30px;
+	width: 1px;
+	top: -15px;
+	left: 0px;
+
+}
+
+.stacktop {
+	display: flex;
+	content: '';
+	position: relative;
+	justify-content: right;
+	border-top: 1px solid black;
+	border-left: 1px solid black;
+	height: 20px;
+	width: 100%;
+	top: 0px;
+	left: 0px;
 }
 
 .manager {
@@ -25,6 +78,7 @@
 	width: 1px;
 	left: 50%;
 }
+
 
 .reportleft {
 	display: flex;
@@ -62,13 +116,13 @@
 }
 
 .name {
-	border: 1px solid black;
-	padding: 10px;
-	margin-left: 5px;
-	margin-right: 5px;
-	min-width: 150px;
-	background-color: #FFFFFF;
+	border: 1.0px solid black;
+	min-width: 175px;
+	padding: 5px;
 	display: inline-block;
+	vertical-align: middle;
+	
+	margin-right: 10px;
 }
 
 .directreports {

@@ -51,24 +51,28 @@ $isManagerEnd  = $singleDiv
 
 $personFirstReport = @("
 <div class='person'>
+<div class='personbefore'></div>
 <div class='reportleft'></div>
 <div class='name'>$UserFullName</div>
 ")
 
 $personMiddleReport = @("
 <div class='person'>
+<div class='personbefore'></div>
 <div class='reportcenter'></div>
 <div class='name'>$UserFullName</div>
 ")
 
 $personLastReport = @("
 <div class='person'>
+<div class='personbefore'></div>
 <div class='reportright'></div>
 <div class='name'>$UserFullName</div>
 ")
 
 $personOnlyReport = @("
 <div class='person'>
+<div class='personbefore'></div>
 <div class='name'>$UserFullName</div>
 ")  
 
