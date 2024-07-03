@@ -1,7 +1,15 @@
+html {
+	max-width: 101vw;
+	max-height: 98vh;
+}
+
 
 .directory {
 	margin: auto;
 	text-align: center;
+	overflow-x: scroll;
+
+	max-height: 99vh;
 }
 
 .stackseparator {
@@ -68,6 +76,19 @@
 	left: 0px;
 }
 
+.stacktoponly {
+	display: flex;
+	content: '';
+	position: relative;
+	justify-content: right;
+	border-top: 1px solid black;
+	border-left: 1px solid black;
+	height: 20px;
+	width: 50%;
+	top: 0px;
+	left: 0px;
+}
+
 .manager {
 	display: flex;
 	content: '';
@@ -117,7 +138,7 @@
 
 .name {
 	border: 1.0px solid black;
-	min-width: 175px;
+	min-width: 225px;
 	padding: 5px;
 	display: inline-block;
 	vertical-align: middle;

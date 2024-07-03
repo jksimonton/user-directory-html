@@ -80,6 +80,33 @@ $personEnd = $singleDiv
 
 #endregion
 
+
+#region No Reports
+
+$noReportsStart = @("
+<div class='noreports'>
+<div class='stacktop'></div>
+")
+
+$noReportsStartOnly = @("
+<div class='noreports'>
+<div class='stacktoponly'></div>
+")
+
+$noReportsEnd = $singleDiv
+
+$personStacked = @("
+<div class='personstacked'>
+<div class='treeleft'></div>
+<div class='personleft'></div>
+<div class='name'>$UserFullName</div>
+</div>
+")
+
+$stackSeparator = @("<div class='stackseparator'></div>")
+
+#endregion
+
 if ($BlockName -eq "singlediv") { Add-Content -Path $FilePath $singleDiv }
 elseif ($BlockName -eq "doublediv") { Add-Content -Path $FilePath $doubleDiv }
 elseif ($BlockName -eq "rootsetup") { Add-Content -Path $FilePath $rootSetup }
@@ -91,5 +118,10 @@ elseif ($BlockName -eq "personmiddle") { Add-Content -Path $FilePath $personMidd
 elseif ($BlockName -eq "personlast") { Add-Content -Path $FilePath $personLastReport }
 elseif ($BlockName -eq "persononly") { Add-Content -Path $FilePath $personOnlyReport }
 elseif ($BlockName -eq "personend") { Add-Content -Path $FilePath $personEnd }
+elseif ($BlockName -eq "noreportsstart") { Add-Content -Path $FilePath $noReportsStart }
+elseif ($BlockName -eq "noreportsstartonly") { Add-Content -Path $FilePath $noReportsStartOnly }
+elseif ($BlockName -eq "noreportsend") { Add-Content -Path $FilePath $noReportsEnd }
+elseif ($BlockName -eq "personstacked") { Add-Content -Path $FilePath $personStacked }
+elseif ($BlockName -eq "stackseparator") { Add-Content -Path $FilePath $stackSeparator }
 
 }
