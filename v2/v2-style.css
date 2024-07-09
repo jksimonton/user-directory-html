@@ -20,11 +20,12 @@ html {
 .block {
     display: flex;
     flex-direction: column;
+    flex-grow: 1;
 
     border: 1pt solid black;
 
-    margin-left: 5pt;
-    margin-right: 5pt;
+    margin-left: 0pt;
+    margin-right: 10pt;
 }
 
 .name {
@@ -57,6 +58,12 @@ html {
     flex-grow: 1;
 }
 
+.stackspacer {
+    border-left: 1pt solid black;
+    width: 0pt;
+    height: 5pt;
+}
+
 /* Different Line Orders */
 .rowlines {
     display: flex;
@@ -87,6 +94,12 @@ html {
     height: 10pt;
 }
 
+.stackseparator {
+    border-bottom: 1pt solid black;
+    width: 10pt;
+    height: 50%;
+}
+
 /* Connectors */
 .leftconnector {
     border-top: 1pt solid black;
@@ -109,10 +122,32 @@ html {
     height: 0pt;
 }
 
-.stackconnector {
+.stackonlyconnector {
     border-top: 1pt solid black;
     border-left: 1pt solid black;
 
     width: 50%;
-    height: 9pt;
+    height: 4pt;
+}
+
+.stackconnector {
+    border-top: 1pt solid black;
+    border-left: 1pt solid black;
+
+    width: 100%;
+    height: 4pt;
+}
+
+.middlestackconnector {
+    border-left: 1pt solid black;
+
+    width: 0pt;
+    height: 100%;
+}
+
+.bottomstackconnector {
+    border-left: 1pt solid black;
+
+    width: 0pt;
+    height: 50%;
 }
