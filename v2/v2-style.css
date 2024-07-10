@@ -24,15 +24,33 @@ html {
 
     border: 1pt solid black;
 
+    margin-left: 5pt;
+    margin-right: 5pt;
+}
+
+.stackedblock {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+
+    border: 1pt solid black;
+
     margin-left: 0pt;
     margin-right: 10pt;
 }
 
 .name {
+    padding: 2pt;
+    padding-bottom: 1pt;
+
     font-size: 1.5em;
+    text-wrap: nowrap;
 }
 
 .title {
+    padding: 2pt;
+    padding-top: 1pt;
+
     font-size: 1em;
     font-style: italic;
 }
@@ -55,7 +73,7 @@ html {
 .stackedperson {
     display: flex;
     flex-direction: row;
-    flex-grow: 1;
+    
 }
 
 .stackspacer {

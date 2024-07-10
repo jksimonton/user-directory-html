@@ -11,7 +11,134 @@ function HTML-Blocks2 {
 # Start and End of the HTML File
 $indexstart = @("
 <html>
-<link href='v2-style.css' rel='stylesheet' />
+<head>
+<style>
+html {
+    display: flex;
+    text-align: center;
+}
+.directory {
+    flex-grow: 1;
+}
+.person {
+    flex-grow: 1;
+}
+.block {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    border: 1pt solid black;
+    margin-left: 5pt;
+    margin-right: 5pt;
+}
+.stackedblock {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    border: 1pt solid black;
+    margin-left: 0pt;
+    margin-right: 10pt;
+}
+.name {
+    padding: 2pt;
+    padding-bottom: 1pt;
+    font-size: 1.5em;
+    text-wrap: nowrap;
+}
+.title {
+    padding: 2pt;
+    padding-top: 1pt;
+    font-size: 1em;
+    font-style: italic;
+}
+.directreports {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+.reportstack {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+.stackedperson {
+    display: flex;
+    flex-direction: row;
+}
+.stackspacer {
+    border-left: 1pt solid black;
+    width: 0pt;
+    height: 5pt;
+}
+.rowlines {
+    display: flex;
+    flex-direction: row;
+}
+.columnlines {
+    display: flex;
+    flex-direction: column;
+}
+.leftseparator {
+    border-right: 1pt solid black;
+    width: 50%;
+    height: 10pt;
+}
+.middleseparator {
+    border-right: 1pt solid black;
+    width: 0pt;
+    height: 10pt;
+}
+.rightseparator {
+    border-left: 1pt solid black;
+    width: 50%;
+    height: 10pt;
+}
+.stackseparator {
+    border-bottom: 1pt solid black;
+    min-width: 10pt;
+    height: 50%;
+}
+.leftconnector {
+    border-top: 1pt solid black;
+
+    width: 50%;
+    height: 0pt;
+}
+.middleconnector {
+    border-top: 1pt solid black;
+    width: 100%;
+    height: 0pt;
+}
+.rightconnector {
+    border-top: 1pt solid black;
+    width: 50%;
+    height: 0pt;
+}
+.stackonlyconnector {
+    border-top: 1pt solid black;
+    border-left: 1pt solid black;
+    width: 50%;
+    height: 4pt;
+}
+.stackconnector {
+    border-top: 1pt solid black;
+    border-left: 1pt solid black;
+    width: 100%;
+    height: 4pt;
+}
+.middlestackconnector {
+    border-left: 1pt solid black;
+    width: 0pt;
+    height: 100%;
+}
+.bottomstackconnector {
+    border-left: 1pt solid black;
+    border-bottom: 1pt solid black;
+    width: 0pt;
+    height: 50%;
+}
+</style>
+</head>
 <div class='directory'>
 <div class='person'>
 <div class='block'>
@@ -92,7 +219,7 @@ $stackedPerson = @("
 <div class='stackedperson'> <!-- Start $UserFullName Stacked Person -->
 <div class='middlestackconnector'></div>
 <div class='stackseparator'></div>
-<div class='block'>
+<div class='stackedblock'>
 <div class='name'>$UserFullName</div>
 <div class='title'>$UserTitle</div>
 </div>
@@ -104,7 +231,7 @@ $stackedPersonBottom = @("
 <div class='stackedperson'> <!-- Start $UserFullName Stacked Person -->
 <div class='bottomstackconnector'></div>
 <div class='stackseparator'></div>
-<div class='block'>
+<div class='stackedblock'>
 <div class='name'>$UserFullName</div>
 <div class='title'>$UserTitle</div>
 </div>
