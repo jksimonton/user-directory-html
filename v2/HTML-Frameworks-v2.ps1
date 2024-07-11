@@ -3,19 +3,47 @@ function HTML-Blocks2 {
     [cmdletbinding()]
         param (
         $BlockName = "",
-        $UserFullName = "Name",
-        $UserTitle = "Title",
+        $Username,
         $FilePath = "C:\ProjectData\user-directory-html\v2\index.html"
     )
+
+$UserFullName = Get-ADUser $Username -Properties DisplayName | Select-Object -ExpandProperty DisplayName
+$UserTitle = Get-ADUser $Username -Properties Title | Select-Object -ExpandProperty Title
+$UserOffice = Get-ADUser $Username -Properties PhysicalDeliveryOfficeName | Select-Object -ExpandProperty PhysicalDeliveryOfficeName
+$UserEmail = Get-ADUser $Username -Properties Mail | Select-Object -ExpandProperty Mail
+$UserPhone = Get-ADUser $Username -Properties TelephoneNumber | Select-Object -ExpandProperty TelephoneNumber
+$UserExt = Get-ADUser $Username -Properties ipPhone | Select-Object -ExpandProperty ipPhone
+
+if ($UserOffice -eq $null) { $UserOffice = "N/A"}
+if ($UserEmail -eq $null) { $UserEmail = "N/A"}
+if ($UserPhone -eq $null) { $UserPhone = "N/A"}
+if ($UserExt -eq $null) { $UserExt = "N/A"}
 
 # Start and End of the HTML File
 $indexstart = @("
 <html>
-<head>
+<div class='directory'>
+<div class='person'>
+<div class='block' onclick='toggleExpand(event, this)'>
+<div class='name'>$UserFullName</div>
+<div class='title'>$UserTitle</div>
+<div class='otherinfo'>Office: $UserOffice</div>
+<div class='otherinfo'>Email: $UserEmail</div>
+<div class='otherinfo'>Phone: $UserPhone</div>
+<div class='otherinfo'>Extension: $UserExt</div>
+<div class='spacer'></div>
+</div>
+")
+
+$indexend = @("
+</div> <!-- End Root User -->
+</div> <!-- End Directory -->
+</html>
 <style>
 html {
     display: flex;
     text-align: center;
+    font-family: sans-serif;
 }
 .directory {
     flex-grow: 1;
@@ -39,16 +67,17 @@ html {
     margin-left: 0pt;
     margin-right: 10pt;
 }
+.block:hover,.stackedblock:hover { background-color: #dfecf5; }
 .name {
     padding: 2pt;
     padding-bottom: 1pt;
-    font-size: 1.5em;
+    font-size: 1.6em;
     text-wrap: nowrap;
 }
 .title {
     padding: 2pt;
     padding-top: 1pt;
-    font-size: 1em;
+    font-size: 1.2em;
     font-style: italic;
 }
 .directreports {
@@ -137,20 +166,36 @@ html {
     width: 0pt;
     height: 50%;
 }
+[type='checkbox'] {
+    position: absolute;
+    left: -100vw;
+}
+.otherinfo { display: none; }
+.otherinfo.expanded { display: block; }
+.spacer { width: 100%; height: 3pt; }
 </style>
-</head>
-<div class='directory'>
-<div class='person'>
-<div class='block'>
-<div class='name'>$UserFullName</div>
-<div class='title'>$UserTitle</div>
-</div>
-")
 
-$indexend = @("
-</div> <!-- End Root User -->
-</div> <!-- End Directory -->
-</html>
+<script>
+    function toggleExpand(event, element) {
+
+        event.preventDefault();
+
+        let children = [];
+
+        for (var i = 0; i < element.childNodes.length; i++) {
+            if (element.childNodes[i].className == 'otherinfo') {
+                children.push(element.childNodes[i]);
+            }
+            if (element.childNodes[i].className == 'otherinfo expanded') {
+                children.push(element.childNodes[i]);
+            }
+        }
+
+        children.forEach(child => {
+            child.classList.toggle('expanded');
+        });
+    }
+</script>
 ")
 
 
@@ -161,9 +206,14 @@ $personLeft = @("
 <div class='leftseparator'></div>
 <div class='leftconnector'></div>
 </div>
-<div class='block'>
+<div class='block' onclick='toggleExpand(event, this)'>
 <div class='name'>$UserFullName</div>
 <div class='title'>$UserTitle</div>
+<div class='otherinfo'>Office: $UserOffice</div>
+<div class='otherinfo'>Email: $UserEmail</div>
+<div class='otherinfo'>Phone: $UserPhone</div>
+<div class='otherinfo'>Extension: $UserExt</div>
+<div class='spacer'></div>
 </div>
 ")
 
@@ -174,9 +224,14 @@ $personMiddle = @("
 <div class='middleseparator'></div>
 <div class='leftconnector'></div>
 </div>
-<div class='block'>
+<div class='block' onclick='toggleExpand(event, this)'>
 <div class='name'>$UserFullName</div>
 <div class='title'>$UserTitle</div>
+<div class='otherinfo'>Office: $UserOffice</div>
+<div class='otherinfo'>Email: $UserEmail</div>
+<div class='otherinfo'>Phone: $UserPhone</div>
+<div class='otherinfo'>Extension: $UserExt</div>
+<div class='spacer'></div>
 </div>
 ")
 
@@ -186,18 +241,28 @@ $personRight = @("
 <div class='rightconnector'></div>
 <div class='rightseparator'></div>
 </div>
-<div class='block'>
+<div class='block' onclick='toggleExpand(event, this)'>
 <div class='name'>$UserFullName</div>
 <div class='title'>$UserTitle</div>
+<div class='otherinfo'>Office: $UserOffice</div>
+<div class='otherinfo'>Email: $UserEmail</div>
+<div class='otherinfo'>Phone: $UserPhone</div>
+<div class='otherinfo'>Extension: $UserExt</div>
+<div class='spacer'></div>
 </div>
 ")
 
 $personOnly = @("
 <div class='person'> <!-- Start $UserFullName Person -->
 <div class='leftseparator'></div>
-<div class='block'>
+<div class='block' onclick='toggleExpand(event, this)'>
 <div class='name'>$UserFullName</div>
 <div class='title'>$UserTitle</div>
+<div class='otherinfo'>Office: $UserOffice</div>
+<div class='otherinfo'>Email: $UserEmail</div>
+<div class='otherinfo'>Phone: $UserPhone</div>
+<div class='otherinfo'>Extension: $UserExt</div>
+<div class='spacer'></div>
 </div>
 ")
 
@@ -219,9 +284,14 @@ $stackedPerson = @("
 <div class='stackedperson'> <!-- Start $UserFullName Stacked Person -->
 <div class='middlestackconnector'></div>
 <div class='stackseparator'></div>
-<div class='stackedblock'>
+<div class='stackedblock' onclick='toggleExpand(event, this)'>
 <div class='name'>$UserFullName</div>
 <div class='title'>$UserTitle</div>
+<div class='otherinfo'>Office: $UserOffice</div>
+<div class='otherinfo'>Email: $UserEmail</div>
+<div class='otherinfo'>Phone: $UserPhone</div>
+<div class='otherinfo'>Extension: $UserExt</div>
+<div class='spacer'></div>
 </div>
 </div> <!-- End $UserFullName Stacked Person -->
 ")
@@ -231,9 +301,14 @@ $stackedPersonBottom = @("
 <div class='stackedperson'> <!-- Start $UserFullName Stacked Person -->
 <div class='bottomstackconnector'></div>
 <div class='stackseparator'></div>
-<div class='stackedblock'>
+<div class='stackedblock' onclick='toggleExpand(event, this)'>
 <div class='name'>$UserFullName</div>
 <div class='title'>$UserTitle</div>
+<div class='otherinfo'>Office: $UserOffice</div>
+<div class='otherinfo'>Email: $UserEmail</div>
+<div class='otherinfo'>Phone: $UserPhone</div>
+<div class='otherinfo'>Extension: $UserExt</div>
+<div class='spacer'></div>
 </div>
 </div> <!-- End $UserFullName Stacked Person --> 
 </div> <!-- End Stack -->

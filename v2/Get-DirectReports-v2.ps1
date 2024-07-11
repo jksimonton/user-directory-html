@@ -36,14 +36,12 @@ function Get-DirectReports2 {
     }
 
     if ($cleanReports.Count -gt 0) { # If the current user actually has direct reports.
-        HTML-Blocks2 "managerstart" $ManagerFullName $ManagerTitle $OutputPath
+        HTML-Blocks2 "managerstart" $user.samAccountName $OutputPath
         if ($cleanReports.Count -eq 1) {
             foreach ($user in $cleanReports) {
-                $UserFullName = Get-ADUser -Identity $user.samAccountName -Properties DisplayName | Select-Object -ExpandProperty DisplayName
-                $UserTitle = Get-ADUser -Identity $user.samAccountName -Properties Title | Select-Object -ExpandProperty Title
-                HTML-Blocks2 "persononly" $UserFullName $UserTitle $OutputPath
+                HTML-Blocks2 "persononly" $user.samAccountName $OutputPath
                 Get-DirectReports2 $user.samAccountName $Level $IncludeServiceAccounts $OutputPath
-                HTML-Blocks2 "personend" $UserFullName $UserTitle $OutputPath
+                HTML-Blocks2 "personend" $user.samAccountName $OutputPath
             }
         } elseif ($cleanReports.Count -gt 3) { # If there are more than 3 direct reports under the manager, they may qualify for stacking.
             $noReports = @()
@@ -62,68 +60,58 @@ function Get-DirectReports2 {
 
             if ($yesReports.Count -gt 0) { # If the user's direct reports also have direct reports.
                 if ($noReports.Count -gt 3) { # If there are more than three users without direct reports, stack them and then list the others.
-                    HTML-Blocks2 "stackstartothers" $ManagerFullName $ManagerTitle $OutputPath
+                    HTML-Blocks2 "stackstartothers" $user.samAccountName $OutputPath
                     foreach ($user in $noReports) {
-                        $UserFullName = Get-ADUser -Identity $user.samAccountName -Properties DisplayName | Select-Object -ExpandProperty DisplayName
-                        $UserTitle = Get-ADUser -Identity $user.samAccountName -Properties Title | Select-Object -ExpandProperty Title
-                        if ($user -eq $noReports[$noReports.Count-1]) { HTML-Blocks2 "stackedpersonbottom" $UserFullName $UserTitle $OutputPath }
-                        else { HTML-Blocks2 "stackedperson" $UserFullName $UserTitle $OutputPath }
+                        if ($user -eq $noReports[$noReports.Count-1]) { HTML-Blocks2 "stackedpersonbottom" $user.samAccountName $OutputPath }
+                        else { HTML-Blocks2 "stackedperson" $user.samAccountName $OutputPath }
                     }
                     foreach ($user in $yesReports) {
-                        $UserFullName = Get-ADUser -Identity $user.samAccountName -Properties DisplayName | Select-Object -ExpandProperty DisplayName
-                        $UserTitle = Get-ADUser -Identity $user.samAccountName -Properties Title | Select-Object -ExpandProperty Title
-                        if ($user -eq $yesReports[$yesReports.Count-1]) { HTML-Blocks2 "personright" $UserFullName $UserTitle $OutputPath }
-                        else { HTML-Blocks2 "personmiddle" $UserFullName $UserTitle $OutputPath }
+                        if ($user -eq $yesReports[$yesReports.Count-1]) { HTML-Blocks2 "personright" $user.samAccountName $OutputPath }
+                        else { HTML-Blocks2 "personmiddle" $user.samAccountName $OutputPath }
                         Get-DirectReports2 $user.samAccountName $Level $IncludeServiceAccounts $OutputPath
-                        HTML-Blocks2 "personend" $UserFullName $UserTitle $OutputPath
+                        HTML-Blocks2 "personend" $user.samAccountName $OutputPath
                     }
                 } else { # There aren't enough no reports users to bother with a stack.
                     foreach ($user in $cleanReports) {
-                        $UserFullName = Get-ADUser -Identity $user.samAccountName -Properties DisplayName | Select-Object -ExpandProperty DisplayName
-                        $UserTitle = Get-ADUser -Identity $user.samAccountName -Properties Title | Select-Object -ExpandProperty Title
                         if ($user -eq $cleanReports[0]) {
-                            HTML-Blocks2 "personleft" $UserFullName $UserTitle $OutputPath
+                            HTML-Blocks2 "personleft" $user.samAccountName $OutputPath
                             Get-DirectReports2 $user.samAccountName $Level $IncludeServiceAccounts $OutputPath
-                            HTML-Blocks2 "personend" $UserFullName $UserTitle $OutputPath
+                            HTML-Blocks2 "personend" $user.samAccountName $OutputPath
                         } elseif ($user -eq $cleanReports[$cleanReports.Count-1]) {
-                            HTML-Blocks2 "personright" $UserFullName $UserTitle $OutputPath
+                            HTML-Blocks2 "personright" $user.samAccountName $OutputPath
                             Get-DirectReports2 $user.samAccountName $Level $IncludeServiceAccounts $OutputPath
-                            HTML-Blocks2 "personend" $UserFullName $UserTitle $OutputPath
+                            HTML-Blocks2 "personend" $user.samAccountName $OutputPath
                         } else {
-                            HTML-Blocks2 "personmiddle" $UserFullName $UserTitle $OutputPath
+                            HTML-Blocks2 "personmiddle" $user.samAccountName $OutputPath
                             Get-DirectReports2 $user.samAccountName $Level $IncludeServiceAccounts $OutputPath
-                            HTML-Blocks2 "personend" $UserFullName $UserTitle $OutputPath
+                            HTML-Blocks2 "personend" $user.samAccountName $OutputPath
                         }
                     }
                 }
             } else { # No direct reports after the current user, just stack them all.
-                HTML-Blocks2 "stackstartonly" $ManagerFullName $ManagerTitle $OutputPath
+                HTML-Blocks2 "stackstartonly" $user.samAccountName $OutputPath
                 foreach ($user in $cleanReports) {
-                    $UserFullName = Get-ADUser -Identity $user.samAccountName -Properties DisplayName | Select-Object -ExpandProperty DisplayName
-                    $UserTitle = Get-ADUser -Identity $user.samAccountName -Properties Title | Select-Object -ExpandProperty Title
-                    if ($user -eq $cleanReports[$cleanReports.Count-1]) { HTML-Blocks2 "stackedpersonbottom" $UserFullName $UserTitle $OutputPath}
-                    else { HTML-Blocks2 "stackedperson" $UserFullName $UserTitle $OutputPath }
+                    if ($user -eq $cleanReports[$cleanReports.Count-1]) { HTML-Blocks2 "stackedpersonbottom" $user.samAccountName $OutputPath}
+                    else { HTML-Blocks2 "stackedperson" $user.samAccountName $OutputPath }
                 }
             }
         } else {
             foreach ($user in $cleanReports) {
-                $UserFullName = Get-ADUser -Identity $user.samAccountName -Properties DisplayName | Select-Object -ExpandProperty DisplayName
-                $UserTitle = Get-ADUser -Identity $user.samAccountName -Properties Title | Select-Object -ExpandProperty Title
                 if ($user -eq $cleanReports[0]) {
-                    HTML-Blocks2 "personleft" $UserFullName $UserTitle $OutputPath
+                    HTML-Blocks2 "personleft" $user.samAccountName $OutputPath
                     Get-DirectReports2 $user.samAccountName $Level $IncludeServiceAccounts $OutputPath
-                    HTML-Blocks2 "personend" $UserFullName $UserTitle $OutputPath
+                    HTML-Blocks2 "personend" $user.samAccountName $OutputPath
                 } elseif ($user -eq $cleanReports[$cleanReports.Count-1]) {
-                    HTML-Blocks2 "personright" $UserFullName $UserTitle $OutputPath
+                    HTML-Blocks2 "personright" $user.samAccountName $OutputPath
                     Get-DirectReports2 $user.samAccountName $Level $IncludeServiceAccounts $OutputPath
-                    HTML-Blocks2 "personend" $UserFullName $UserTitle $OutputPath
+                    HTML-Blocks2 "personend" $user.samAccountName $OutputPath
                 } else {
-                    HTML-Blocks2 "personmiddle" $UserFullName $UserTitle $OutputPath
+                    HTML-Blocks2 "personmiddle" $user.samAccountName $OutputPath
                     Get-DirectReports2 $user.samAccountName $Level $IncludeServiceAccounts $OutputPath
-                    HTML-Blocks2 "personend" $UserFullName $UserTitle $OutputPath
+                    HTML-Blocks2 "personend" $user.samAccountName $OutputPath
                 }
             }
         }
-        HTML-Blocks2 "managerend" $ManagerFullName $ManagerTitle $OutputPath
+        HTML-Blocks2 "managerend" $user.samAccountName $OutputPath
     }
 }
